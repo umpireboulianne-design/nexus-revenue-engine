@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ app_name }}</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-badge">NEXUS PULSE</span>
+        <div>
+          <h1 style="margin:0;font-size:20px;">Centre de Revenus Autonomes & Chasseur de Primes</h1>
+          <div style="font-size:13px;color:var(--text-muted);">API B2B Commerciale (RapidAPI / Apify / Direct SaaS) + Radar Live de Bounties Open-Source</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <a href="/docs" target="_blank" class="btn btn-outline">Documentation API (Swagger)</a>
+        <a href="/api/v1/health" target="_blank" class="btn btn-outline">Statut Moteurs</a>
+      </div>
+    </header>
+
+    <!-- KPI Overview -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Cagnotte de Primes Détectées</div>
+        <div class="kpi-value" style="color:var(--emerald);">{{ metrics.kpis.available_bounties_pool_usd }} $</div>
+        <div class="kpi-sub">{{ metrics.kpis.bounties_count }} primes ouvertes prêtes à réclamer</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Pipeline Audits B2B (Forfaits)</div>
+        <div class="kpi-value" style="color:var(--primary);">{{ metrics.kpis.lead_pipeline_value_usd }} $</div>
+        <div class="kpi-sub">{{ metrics.kpis.audited_leads_count }} entreprises auditées avec pitch</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Revenu Récurrent Actif (MRR)</div>
+        <div class="kpi-value" style="color:var(--violet);">{{ metrics.kpis.active_mrr_usd }} $/mois</div>
+        <div class="kpi-sub">{{ metrics.kpis.total_api_calls_served }} appels API servis</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Revenus & Primes Encaissés</div>
+        <div class="kpi-value" style="color:var(--amber);">{{ metrics.kpis.realized_revenue_usd }} $</div>
+        <div class="kpi-sub">Total cumulé enregistré</div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs">
+      <button class="tab-btn active" onclick="switchTab('tab-bounties', this)">1. Radar de Primes Cash (GitHub / Algora)</button>
+      <button class="tab-btn" onclick="switchTab('tab-auditor', this)">2. Audit B2B & Générateur de Forfaits</button>
+      <button class="tab-btn" onclick="switchTab('tab-batch', this)">3. Prospection B2B par Lot (Batch)</button>
+      <button class="tab-btn" onclick="switchTab('tab-monetization', this)">4. Monétisation SaaS, Clés API & Webhooks</button>
+    </nav>
+
+    <!-- TAB 1: Live Cash Bounty Hunter -->
+    <section id="tab-bounties" class="panel active">
+      <h2 style="margin-top:0;">Chasseur de Primes Open-Source en Temps Réel (Montants Forfaitaires)</h2>
+      <p style="color:var(--text-muted);font-size:14px;">
+        Ce moteur interroge en direct GitHub pour trouver des tickets ouverts avec une prime garantie en dollars (Algora, Opire, Polar, GitHub Bounties).
+        Cliquez sur <strong>« Copier Brief Antigravity »</strong> sur n'importe quelle prime et collez-le dans notre chat : je clone le dépôt, code la solution et prépare la Pull Request pour encaisser la prime.
+      </p>
+      <div class="input-row">
+        <input id="bounty-filter-input" type="text" placeholder="Filtrer par mot-clé ou langage (ex: python, typescript, nextjs) — optionnel" />
+        <input id="bounty-min-input" type="number" value="50" style="max-width:160px;" placeholder="Prime min ($)" />
+        <button class="btn btn-emerald" onclick="scanLiveBounties()">Scanner les Primes en Direct</button>
+      </div>
+      <div id="bounty-status" style="margin-bottom:14px;color:var(--emerald);font-weight:600;"></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Prime USD</th>
+              <th>Plateforme & Stack</th>
+              <th>Issue & Dépôt GitHub</th>
+              <th>Exécution Autonome</th>
+            </tr>
+          </thead>
+          <tbody id="bounty-tbody">
+            {% for b in metrics.top_bounties %}
+            <tr>
+              <td><span class="badge badge-green" style="font-size:14px;">{{ b.reward_usd }} $</span></td>
+              <td>
+                <span class="badge badge-blue">{{ b.source_platform }}</span>
+                <div style="font-size:12px;color:#94a3b8;margin-top:4px;">{{ b.language }}</div>
+              </td>
+              <td>
+                <a href="{{ b.html_url }}" target="_blank" style="color:#60a5fa;font-weight:600;text-decoration:none;">{{ b.title }}</a>
+                <div style="font-size:12px;color:#94a3b8;">{{ b.repo_full_name }} • {{ b.comments_count }} commentaire(s) • Score ROI: {{ b.roi_score }}</div>
+                <textarea id="saved-bounty-{{ loop.index }}" style="display:none;">{{ b.antigravity_prompt }}</textarea>
+              </td>
+              <td>
+                <button class="btn btn-outline" onclick="copyPrompt('saved-bounty-{{ loop.index }}')">Copier Brief Antigravity</button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 2: Single Domain B2B Auditor -->
+    <section id="tab-auditor" class="panel">
+      <h2 style="margin-top:0;">Moteur d'Intelligence B2B & Générateur de Rapports Vendables</h2>
+      <p style="color:var(--text-muted);font-size:14px;">
+        Entrez n'importe quel domaine client : le moteur détecte les failles SEO, les en-têtes de sécurité manquants, la stack technologique, les emails de contact, génère un rapport Marque Blanche (vendable 150 $ à 490 $) ainsi que l'email de prospection prêt à envoyer.
+      </p>
+      <div class="input-row">
+        <input id="audit-url-input" type="text" placeholder="Ex: news.ycombinator.com, python.org, ou le site d'une PME locale" value="python.org" />
+        <button class="btn" onclick="runSingleAudit()">Lancer l'Audit & Générer le Pitch</button>
+      </div>
+      <div id="audit-status" style="color:var(--primary);font-weight:600;margin-bottom:12px;"></div>
+      <div id="audit-result" style="display:none;"></div>
+    </section>
+
+    <!-- TAB 3: Batch B2B Prospector -->
+    <section id="tab-batch" class="panel">
+      <h2 style="margin-top:0;">Scanner de Prospection B2B par Lot (Jusqu'à 15 Domaines Simultanés)</h2>
+      <p style="color:var(--text-muted);font-size:14px;">
+        Collez une liste de domaines (un par ligne) pour identifier instantanément les entreprises ayant un mauvais score SEO/Sécurité et générer leurs rapports d'audit facturables au forfait.
+      </p>
+      <div class="input-row">
+        <textarea id="batch-urls-input" rows="4" placeholder="exemple-agence.fr&#10;boutique-locale.com&#10;cabinet-conseil.ca">example.com
+python.org</textarea>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn btn-emerald" onclick="runBatchAudit()">Scanner le Lot en Parallèle</button>
+        <a class="btn btn-outline" href="/api/v1/leads/export-csv" target="_blank">Télécharger Campagne CSV (Emails + Pitches)</a>
+      </div>
+      <div id="batch-status" style="margin:14px 0;color:var(--emerald);font-weight:600;"></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Domaine & Stack</th>
+              <th>Scores</th>
+              <th>Contacts</th>
+              <th>Forfait Recommandé</th>
+              <th>Livrable Client</th>
+            </tr>
+          </thead>
+          <tbody id="batch-tbody">
+            {% for lead in metrics.recent_leads %}
+            <tr>
+              <td><strong>{{ lead.domain }}</strong><div style="font-size:12px;color:#94a3b8;">{{ lead.tech_stack[:3] | join(', ') }}</div></td>
+              <td>{{ lead.overall_score }}/100 (SEO {{ lead.seo_score }} / Sec {{ lead.security_score }})</td>
+              <td>{{ lead.emails[:2] | join(', ') or 'Via site' }}</td>
+              <td><span class="badge badge-green">{{ lead.estimated_deal_value_usd }} $</span></td>
+              <td>
+                <a class="btn btn-outline" href="/api/v1/audit/report-html?url={{ lead.domain }}" target="_blank">Audit</a>
+                <a class="btn btn-emerald" href="/api/v1/audit/remediation-html?url={{ lead.domain }}" target="_blank">Livrable</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 4: Monetization, API Keys & Webhooks -->
+    <section id="tab-monetization" class="panel">
+      <h2 style="margin-top:0;">Catalogue d'Offres SaaS, Clés API & Automatisation des Paiements</h2>
+      <p style="color:var(--text-muted);font-size:14px;">
+        Cette API est prête à être monétisée sur <strong>RapidAPI Hub</strong>, <strong>Apify Store</strong>, et en direct via <strong>Stripe / LemonSqueezy</strong>.
+        Dès qu'un client paie, le webhook <code>POST /api/v1/webhooks/payment</code> crée automatiquement sa clé API et crédite son quota.
+      </p>
+
+      <div class="pricing-grid">
+        {% for code, item in pricing.items() %}
+        <div class="pricing-card">
+          <div>
+            <span class="badge badge-blue">{{ item.type | upper }}</span>
+            <h3 style="margin:10px 0 6px 0;">{{ item.name }}</h3>
+            <div style="font-size:28px;font-weight:800;color:var(--emerald);margin-bottom:12px;">
+              {{ item.price_usd }} $ {% if item.type == 'subscription' %}<span style="font-size:14px;color:var(--text-muted);">/ mois</span>{% endif %}
+            </div>
+            <ul style="padding-left:18px;color:var(--text-muted);font-size:13px;">
+              {% for feat in item.features %}
+              <li style="margin-bottom:6px;">{{ feat }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          <a href="{{ item.checkout_url }}" target="_blank" class="btn" style="justify-content:center;margin-top:14px;">Lien de Paiement Client</a>
+        </div>
+        {% endfor %}
+      </div>
+
+      <h3 style="margin-top:28px;">Simuler / Tester un Paiement Webhook Automatique</h3>
+      <div class="input-row">
+        <input id="sim-email" type="text" placeholder="Email du nouveau client (ex: agence@client.com)" value="client.vip@agence-seo.fr" />
+        <input id="sim-plan" type="text" placeholder="Plan (pro, agency, audit_forfait)" value="pro" style="max-width:180px;" />
+        <input id="sim-amount" type="number" value="29" style="max-width:140px;" />
+        <button class="btn btn-emerald" onclick="simulateWebhookSale()">Provisionner Clé API + Encaisser</button>
+      </div>
+      <div id="sim-result" style="color:var(--emerald);font-weight:600;margin-bottom:20px;"></div>
+
+      <h3>Clés API Actives</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Clé API</th>
+              <th>Client</th>
+              <th>Forfait</th>
+              <th>Usage / Quota</th>
+              <th>MRR Associé</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for k in metrics.api_keys %}
+            <tr>
+              <td><code>{{ k.key_value }}</code></td>
+              <td>{{ k.customer_email }}</td>
+              <td><span class="badge badge-blue">{{ k.plan }}</span></td>
+              <td>{{ k.calls_used }} / {{ k.monthly_quota }}</td>
+              <td>{{ k.mrr_usd }} $/mois</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
