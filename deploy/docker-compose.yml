@@ -1,0 +1,34 @@
+services:
+  nexus-engine:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: nexus-revenue-engine
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    volumes:
+      - nexus_data:/app/data
+    environment:
+      - DATABASE_PATH=/app/data/nexus_revenue.db
+    ports:
+      - "8000:8000"
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: nexus-caddy-https
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - nexus-engine
+
+volumes:
+  nexus_data:
+  caddy_data:
+  caddy_config:
