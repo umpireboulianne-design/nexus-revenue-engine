@@ -1,0 +1,4 @@
+# Remplacez :80 par votre nom de domaine (ex: api.votredomaine.com) pour activer le HTTPS Let's Encrypt automatique
+:80 {
+    reverse_proxy nexus-engine:8000
+}
