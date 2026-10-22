@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Rapport d'Audit Exécutif — nginx.org</title>
+<style>
+  body { font-family: 'Segoe UI', system-ui, sans-serif; color: #0f172a; background: #f8fafc; margin: 0; padding: 32px; }
+  .card { max-width: 860px; margin: 0 auto; background: #ffffff; border-radius: 16px; padding: 36px; box-shadow: 0 10px 25px rgba(15,23,42,0.06); }
+  .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 24px; }
+  .scores { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+  .score-box { background: #f1f5f9; padding: 16px; border-radius: 12px; text-align: center; }
+  .score-val { font-size: 30px; font-weight: 800; color: #1e293b; }
+  .score-lbl { font-size: 12px; text-transform: uppercase; color: #64748b; letter-spacing: 0.05em; }
+  h2 { font-size: 18px; color: #1e293b; margin-top: 24px; border-left: 4px solid #2563eb; padding-left: 10px; }
+  .footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid #e2e8f0; font-size: 13px; color: #64748b; display:flex; justify-content:space-between; }
+  @media print { body { background: #fff; padding: 0; } .card { box-shadow: none; } }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#2563eb;text-transform:uppercase;">Audit Technique & Conformité B2B</div>
+        <h1 style="margin:4px 0 0 0;font-size:26px;">nginx.org</h1>
+        <div style="font-size:13px;color:#64748b;">URL analysée : https://nginx.org • Temps de réponse : 634 ms</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:13px;font-weight:600;">Préparé par Direction Consulting & Audit Numérique</div>
+        <div style="font-size:12px;color:#64748b;">Date : 2026-10-22</div>
+      </div>
+    </div>
+
+    <div class="scores">
+      <div class="score-box"><div class="score-val">43/100</div><div class="score-lbl">Score Global</div></div>
+      <div class="score-box"><div class="score-val">31/100</div><div class="score-lbl">SEO Technique</div></div>
+      <div class="score-box"><div class="score-val">25/100</div><div class="score-lbl">Sécurité & SSL</div></div>
+      <div class="score-box"><div class="score-val">100/100</div><div class="score-lbl">Performance</div></div>
+    </div>
+
+    <h2>1. Technologies & Infrastructure Détectées</h2>
+    <div><span style="display:inline-block;background:#e0e7ff;color:#1e40af;padding:4px 10px;border-radius:999px;font-size:12px;margin:3px;font-weight:600;">Nginx</span></div>
+
+    <h2>2. Diagnostic Référencement Naturel (SEO)</h2>
+    <p style="font-size:14px;color:#334155;">
+      <strong>Title :</strong> nginx<br>
+      <strong>Meta Description :</strong> Non définie<br>
+      <strong>Robots.txt :</strong> Présent •
+      <strong>Sitemap.xml :</strong> Présent •
+      <strong>Schema.org JSON-LD :</strong> Manquant
+    </p>
+    <ul><li style='margin-bottom:6px;color:#b91c1c;'>Longueur du <title> sous-optimale (5 caractères)</li><li style='margin-bottom:6px;color:#b91c1c;'>Meta description absente</li><li style='margin-bottom:6px;color:#b91c1c;'>Aucune balise <h1> détectée sur la page</li><li style='margin-bottom:6px;color:#b91c1c;'>Balise link rel='canonical' manquante</li><li style='margin-bottom:6px;color:#b91c1c;'>Balises OpenGraph (partage réseaux sociaux) incomplètes</li><li style='margin-bottom:6px;color:#b91c1c;'>Aucune donnée structurée Schema.org (JSON-LD) détectée</li></ul>
+
+    <h2>3. Diagnostic Sécurité & En-têtes HTTP</h2>
+    <p style="font-size:14px;color:#334155;">
+      <strong>Certificat SSL :</strong> Valide
+      (Let's Encrypt)
+    </p>
+    <ul><li style='margin-bottom:6px;color:#b45309;'>En-tête manquant : <strong>Content-Security-Policy (CSP)</strong></li><li style='margin-bottom:6px;color:#b45309;'>En-tête manquant : <strong>X-Frame-Options</strong></li><li style='margin-bottom:6px;color:#b45309;'>En-tête manquant : <strong>X-Content-Type-Options</strong></li><li style='margin-bottom:6px;color:#b45309;'>En-tête manquant : <strong>Referrer-Policy</strong></li><li style='margin-bottom:6px;color:#b45309;'>En-tête manquant : <strong>Permissions-Policy</strong></li></ul>
+
+    <h2>4. Plan d'Action & Budget d'Intervention Recommandé</h2>
+    <p style="font-size:14px;color:#334155;">
+      Forfait de mise en conformité clé en main estimé : <strong>490 $ USD</strong>.
+      Contactez <strong>contact@votredomaine.com</strong> pour planifier le déploiement des correctifs.
+    </p>
+
+    <div class="footer">
+      <span>Généré par Nexus Pulse B2B Intelligence Engine</span>
+      <span>Contact : contact@votredomaine.com</span>
+    </div>
+  </div>
+</body>
+</html>
