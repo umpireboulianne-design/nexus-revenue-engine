@@ -1,0 +1,1049 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Nexus Pulse — B2B Intelligence API & Bounty Radar",
+    "description": "API Commerciale d'Intelligence B2B (Audit SEO, Sécurité SSL/Headers, Détection de Stack Technologique, Extraction de Contacts, Générateur Automatique de Livrables de Remédiation & Prospection) + Radar Vérifié de Primes Open-Source (Algora Escrow / Cash Bounties).",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Health Check",
+        "description": "Vérifie l'état de santé du serveur et des moteurs de revenus.",
+        "operationId": "health_check_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Health Check Api V1 Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/audit": {
+      "post": {
+        "tags": [
+          "Moteur 1 : B2B Domain Intelligence API"
+        ],
+        "summary": "Api Audit Domain Post",
+        "description": "Analyse complète d'un domaine : SEO, Sécurité SSL/Headers, Stack Technique, Emails B2B et Cold Email Pitch.",
+        "operationId": "api_audit_domain_post_api_v1_audit_post",
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          },
+          {
+            "name": "X-RapidAPI-Proxy-Secret",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Rapidapi-Proxy-Secret"
+            }
+          },
+          {
+            "name": "X-RapidAPI-User",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Rapidapi-User"
+            }
+          },
+          {
+            "name": "X-RapidAPI-Subscription",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Rapidapi-Subscription"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuditRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Api Audit Domain Post Api V1 Audit Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Moteur 1 : B2B Domain Intelligence API"
+        ],
+        "summary": "Api Audit Domain Get",
+        "description": "Endpoint GET compatible RapidAPI / Make / Zapier / n8n pour auditer un site web en 1 appel.",
+        "operationId": "api_audit_domain_get_api_v1_audit_get",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Domaine ou URL à analyser (ex: news.ycombinator.com)",
+              "title": "Url"
+            },
+            "description": "Domaine ou URL à analyser (ex: news.ycombinator.com)"
+          },
+          {
+            "name": "save_lead",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Sauvegarder dans le CRM de prospection",
+              "default": true,
+              "title": "Save Lead"
+            },
+            "description": "Sauvegarder dans le CRM de prospection"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          },
+          {
+            "name": "X-RapidAPI-Proxy-Secret",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Rapidapi-Proxy-Secret"
+            }
+          },
+          {
+            "name": "X-RapidAPI-User",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Rapidapi-User"
+            }
+          },
+          {
+            "name": "X-RapidAPI-Subscription",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Rapidapi-Subscription"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Api Audit Domain Get Api V1 Audit Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/audit/batch": {
+      "post": {
+        "tags": [
+          "Moteur 1 : B2B Domain Intelligence API"
+        ],
+        "summary": "Api Audit Batch",
+        "description": "Scanne jusqu'à 15 domaines en parallèle pour identifier les prospects B2B à fort potentiel et générer leurs emails.",
+        "operationId": "api_audit_batch_api_v1_audit_batch_post",
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          },
+          {
+            "name": "X-RapidAPI-Proxy-Secret",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Rapidapi-Proxy-Secret"
+            }
+          },
+          {
+            "name": "X-RapidAPI-User",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Rapidapi-User"
+            }
+          },
+          {
+            "name": "X-RapidAPI-Subscription",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Rapidapi-Subscription"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchAuditRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Api Audit Batch Api V1 Audit Batch Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/audit/report-html": {
+      "get": {
+        "tags": [
+          "Moteur 1 : B2B Domain Intelligence API"
+        ],
+        "summary": "Api Audit Whitelabel Html",
+        "description": "Génère un rapport d'audit exécutif en HTML/PDF (Marque Blanche) prêt à être vendu 150 $–490 $ à un client B2B.",
+        "operationId": "api_audit_whitelabel_html_api_v1_audit_report_html_get",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Domaine à auditer pour générer le rapport client en Marque Blanche",
+              "title": "Url"
+            },
+            "description": "Domaine à auditer pour générer le rapport client en Marque Blanche"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/audit/remediation-pack": {
+      "get": {
+        "tags": [
+          "Moteur 1 : B2B Domain Intelligence API"
+        ],
+        "summary": "Api Audit Remediation Json",
+        "description": "Génère automatiquement le Livrable Client Clé-en-Main (Configs Nginx/Apache/Caddy/Vercel, robots.txt, sitemap.xml, JSON-LD).",
+        "operationId": "api_audit_remediation_json_api_v1_audit_remediation_pack_get",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Domaine pour lequel générer automatiquement tous les correctifs techniques",
+              "title": "Url"
+            },
+            "description": "Domaine pour lequel générer automatiquement tous les correctifs techniques"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          },
+          {
+            "name": "X-RapidAPI-Proxy-Secret",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Rapidapi-Proxy-Secret"
+            }
+          },
+          {
+            "name": "X-RapidAPI-User",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Rapidapi-User"
+            }
+          },
+          {
+            "name": "X-RapidAPI-Subscription",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Rapidapi-Subscription"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Api Audit Remediation Json Api V1 Audit Remediation Pack Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/audit/remediation-html": {
+      "get": {
+        "tags": [
+          "Moteur 1 : B2B Domain Intelligence API"
+        ],
+        "summary": "Api Audit Remediation Html",
+        "description": "Affiche le Livrable Technique Complet prêt à remettre au client une fois son paiement forfaitaire effectué.",
+        "operationId": "api_audit_remediation_html_api_v1_audit_remediation_html_get",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Domaine pour lequel afficher le Pack de Mise en Conformité Clé-en-Main",
+              "title": "Url"
+            },
+            "description": "Domaine pour lequel afficher le Pack de Mise en Conformité Clé-en-Main"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/bounties/live": {
+      "get": {
+        "tags": [
+          "Moteur 2 : Chasseur de Primes Open-Source (Cash Bounties)"
+        ],
+        "summary": "Api Live Bounties",
+        "description": "Scanne en temps réel GitHub / Algora Escrow (filtré anti-honeypot) pour extraire les issues rémunérées en dollars.",
+        "operationId": "api_live_bounties_api_v1_bounties_live_get",
+        "parameters": [
+          {
+            "name": "min_reward_usd",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 10,
+              "description": "Montant minimum de la prime en USD",
+              "default": 25,
+              "title": "Min Reward Usd"
+            },
+            "description": "Montant minimum de la prime en USD"
+          },
+          {
+            "name": "query_filter",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Filtre optionnel par langage ou mot-clé (ex: python, typescript)",
+              "default": "",
+              "title": "Query Filter"
+            },
+            "description": "Filtre optionnel par langage ou mot-clé (ex: python, typescript)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Api Live Bounties Api V1 Bounties Live Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/leads/export-csv": {
+      "get": {
+        "tags": [
+          "Moteur 3 : Monétisation & Pilotage"
+        ],
+        "summary": "Api Export Leads Csv",
+        "description": "Exporte tous les prospects B2B audités avec leurs emails et Cold Pitches personnalisés au format CSV.",
+        "operationId": "api_export_leads_csv_api_v1_leads_export_csv_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/leads/send-smtp": {
+      "post": {
+        "tags": [
+          "Moteur 3 : Monétisation & Pilotage"
+        ],
+        "summary": "Api Send Lead Smtp",
+        "description": "Envoie automatiquement l'email d'audit B2B au prospect via SMTP.",
+        "operationId": "api_send_lead_smtp_api_v1_leads_send_smtp_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendPitchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Api Send Lead Smtp Api V1 Leads Send Smtp Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dashboard/metrics": {
+      "get": {
+        "tags": [
+          "Moteur 3 : Monétisation & Pilotage"
+        ],
+        "summary": "Api Dashboard Metrics",
+        "description": "Retourne tous les indicateurs financiers, le pipeline B2B, les clés API actives et les primes détectées.",
+        "operationId": "api_dashboard_metrics_api_v1_dashboard_metrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Api Dashboard Metrics Api V1 Dashboard Metrics Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/keys/create": {
+      "post": {
+        "tags": [
+          "Moteur 3 : Monétisation & Pilotage"
+        ],
+        "summary": "Api Create Customer Key",
+        "description": "Crée une nouvelle clé API client (abonnement SaaS ou accès direct) et met à jour le MRR.",
+        "operationId": "api_create_customer_key_api_v1_keys_create_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateKeyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Api Create Customer Key Api V1 Keys Create Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/revenue/record": {
+      "post": {
+        "tags": [
+          "Moteur 3 : Monétisation & Pilotage"
+        ],
+        "summary": "Api Record Revenue",
+        "description": "Enregistre un paiement forfaitaire encaissé (prime GitHub gagnée, vente d'audit B2B, paiement RapidAPI).",
+        "operationId": "api_record_revenue_api_v1_revenue_record_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordRevenueRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Api Record Revenue Api V1 Revenue Record Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/webhooks/payment": {
+      "post": {
+        "tags": [
+          "Moteur 3 : Monétisation & Pilotage"
+        ],
+        "summary": "Api Payment Webhook",
+        "description": "Webhook universel (Stripe / LemonSqueezy) qui provisionne automatiquement une clé API dès qu'un client paie.",
+        "operationId": "api_payment_webhook_api_v1_webhooks_payment_post",
+        "parameters": [
+          {
+            "name": "X-Signature",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "X-Signature"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Api Payment Webhook Api V1 Webhooks Payment Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuditRequest": {
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "Url",
+            "description": "Nom de domaine ou URL complète à auditer (ex: stripe.com ou https://shopify.com)"
+          },
+          "save_lead": {
+            "type": "boolean",
+            "title": "Save Lead",
+            "description": "Enregistrer dans le pipeline de prospection B2B",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "url"
+        ],
+        "title": "AuditRequest"
+      },
+      "BatchAuditRequest": {
+        "properties": {
+          "urls": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Urls",
+            "description": "Liste de domaines à scanner en parallèle (max 15 par lot)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "urls"
+        ],
+        "title": "BatchAuditRequest"
+      },
+      "CreateKeyRequest": {
+        "properties": {
+          "customer_email": {
+            "type": "string",
+            "title": "Customer Email",
+            "description": "Email du client"
+          },
+          "plan": {
+            "type": "string",
+            "title": "Plan",
+            "description": "Forfait (pro, agency, audit_forfait)",
+            "default": "pro"
+          },
+          "monthly_quota": {
+            "type": "integer",
+            "title": "Monthly Quota",
+            "description": "Quota mensuel d'appels API",
+            "default": 5000
+          },
+          "mrr_usd": {
+            "type": "number",
+            "title": "Mrr Usd",
+            "description": "Revenu mensuel récurrent associé en USD",
+            "default": 29.0
+          }
+        },
+        "type": "object",
+        "required": [
+          "customer_email"
+        ],
+        "title": "CreateKeyRequest"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "RecordRevenueRequest": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "description": "Source du revenu (ex: Algora Bounty, Client Direct, RapidAPI, Stripe)"
+          },
+          "event_type": {
+            "type": "string",
+            "title": "Event Type",
+            "description": "Type d'encaissement",
+            "default": "bounty_or_sale"
+          },
+          "amount_usd": {
+            "type": "number",
+            "title": "Amount Usd",
+            "description": "Montant encaissé en USD"
+          },
+          "customer_or_repo": {
+            "type": "string",
+            "title": "Customer Or Repo",
+            "description": "Nom du client ou du dépôt GitHub"
+          },
+          "details": {
+            "type": "string",
+            "title": "Details",
+            "description": "Notes ou référence",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "amount_usd",
+          "customer_or_repo"
+        ],
+        "title": "RecordRevenueRequest"
+      },
+      "SendPitchRequest": {
+        "properties": {
+          "to_email": {
+            "type": "string",
+            "title": "To Email",
+            "description": "Email du prospect B2B"
+          },
+          "subject": {
+            "type": "string",
+            "title": "Subject",
+            "description": "Objet de l'email"
+          },
+          "body": {
+            "type": "string",
+            "title": "Body",
+            "description": "Corps de l'email de prospection"
+          }
+        },
+        "type": "object",
+        "required": [
+          "to_email",
+          "subject",
+          "body"
+        ],
+        "title": "SendPitchRequest"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
