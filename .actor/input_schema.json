@@ -1,0 +1,15 @@
+{
+  "title": "B2B Domain Intelligence & SEO/Security Auditor Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "domains": {
+      "title": "Target Domains or URLs",
+      "type": "array",
+      "description": "List of domains or URLs to scan for B2B contacts, tech stack, SEO issues, and security headers.",
+      "editor": "stringList",
+      "default": ["python.org", "news.ycombinator.com"]
+    }
+  },
+  "required": ["domains"]
+}
